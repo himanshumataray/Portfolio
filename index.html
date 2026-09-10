@@ -361,6 +361,75 @@ section{padding-block:var(--pad-y); border-bottom:1px solid var(--line); positio
 .field .v b{color:var(--bone); font-weight:500;}
 @media (max-width:700px){ .field{grid-template-columns:1fr; gap:7px;} }
 
+/* ── systems build ───────────────────────────── */
+.build-tag{
+  font-family:var(--mono); font-size:10.5px; letter-spacing:0.13em; text-transform:uppercase;
+  color:var(--gold); border:1px solid var(--gold-deep); padding:5px 11px; display:inline-block;
+  margin-bottom:20px;
+}
+.pipe{
+  display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:0;
+  margin-top:38px; border-top:1px solid var(--line);
+}
+.pipe-step{
+  border-bottom:1px solid var(--line); border-right:1px solid var(--line);
+  padding:20px 22px 20px 0; position:relative;
+}
+.pipe-step:nth-child(3n){border-right:0;}
+.pipe-step:nth-child(n+4){padding-left:0;}
+.pipe-step:not(:nth-child(3n+1)){padding-left:22px;}
+.pipe-n{
+  font-family:var(--mono); font-size:10.5px; letter-spacing:0.12em; color:var(--gold);
+  display:block; margin-bottom:9px;
+}
+.pipe-name{font-weight:500; font-size:1.02rem; margin-bottom:6px;}
+.pipe-what{color:var(--bone-dim); font-size:.93rem;}
+@media (max-width:760px){
+  .pipe{grid-template-columns:1fr;}
+  .pipe-step{border-right:0; padding-left:0 !important; padding-right:0;}
+}
+
+.diagram{margin:44px 0 0; padding:0;}
+.diagram svg{display:block; width:100%; max-width:100%; height:auto; color:var(--bone-faint);}
+.dg-band{fill:currentColor; opacity:.055;}
+.dg-rule{stroke:currentColor; opacity:.5; stroke-width:1;}
+.dg-axis{stroke:currentColor; opacity:.28; stroke-width:1;}
+.dg-need{fill:currentColor; opacity:.5;}
+.dg-hit{fill:var(--gold);}
+.dg-arrow{stroke:var(--gold); stroke-width:1.5; fill:none;}
+.dg-head{fill:var(--gold);}
+.dg-head-n{fill:currentColor; opacity:.4;}
+.dg-t{fill:currentColor; font-family:var(--mono); font-size:12px;}
+.dg-t.hi{fill:var(--gold);}
+.dg-t.bone{fill:var(--bone-dim);}
+.diagram figcaption{
+  margin-top:18px; color:var(--bone-faint); font-size:.92rem; max-width:64ch;
+}
+
+.rule{margin-top:44px; border-top:1px solid var(--line);}
+.rule-row{
+  display:grid; grid-template-columns:170px minmax(0,1fr); gap:10px 28px;
+  border-bottom:1px solid var(--line); padding:20px 0;
+}
+.rule-row .k{
+  font-family:var(--mono); font-size:10.5px; letter-spacing:0.13em; text-transform:uppercase;
+  color:var(--bone-faint); padding-top:3px;
+}
+.rule-row .v{color:var(--bone-dim); max-width:62ch;}
+.rule-row .v code{
+  font-family:var(--mono); font-size:.88rem; color:var(--bone);
+  background:var(--surface-2); border:1px solid var(--line); padding:2px 7px; display:inline-block;
+}
+.rule-row .v b{color:var(--bone); font-weight:500;}
+@media (max-width:700px){ .rule-row{grid-template-columns:1fr; gap:8px;} }
+
+.chips{display:flex; flex-wrap:wrap; gap:9px; margin-top:26px;}
+.scope-note{
+  margin-top:30px; padding-top:18px; border-top:1px solid var(--line);
+  font-family:var(--mono); font-size:11.5px; letter-spacing:0.04em; color:var(--bone-faint);
+  max-width:66ch; line-height:1.7;
+}
+
 /* ── capabilities ────────────────────────────── */
 .caps{display:grid; grid-template-columns:1fr 1fr; gap:clamp(30px,4.4vw,60px); margin-top:34px;}
 .caps h4{
@@ -472,7 +541,8 @@ td .gold{color:var(--gold);}
     <a href="#thesis">Thesis</a>
     <a href="#coverage">Coverage</a>
     <a href="#track">Track Record</a>
-    <a href="#memo">Featured Memo</a>
+    <a href="#memo">Memo</a>
+    <a href="#build">Systems Build</a>
     <a href="#capabilities">Capabilities</a>
     <a href="#credentials">Credentials</a>
   </div>
@@ -691,9 +761,141 @@ td .gold{color:var(--gold);}
   </div>
 </section>
 
+<section id="build">
+  <div class="wrap sec-grid">
+    <div class="sec-idx"><span class="num">§ 05</span><span class="lbl">Systems Build</span></div>
+    <div>
+      <span class="build-tag rv">Quick Commerce · Dark-Store Replenishment</span>
+      <h2 class="rv">From stockout signal<br>to a draft PO.</h2>
+      <p class="lede rv">
+        In quick commerce, availability is the growth lever and wastage plus working capital
+        are the margin levers — and replenishment sits on exactly that trade-off. Order too
+        little and the fastest-moving SKUs stock out during peak. Order too much and short
+        shelf life turns inventory into write-offs. I built a running automation that reads
+        live dark-store stock, sizes each order against that trade-off, and drafts the
+        purchase order for a buyer to approve.
+      </p>
+
+      <div class="pipe">
+        <div class="pipe-step rv">
+          <span class="pipe-n">01 · READ</span>
+          <div class="pipe-name">Pull the low-stock rows</div>
+          <div class="pipe-what">Filters the live inventory sheet to SKUs at or under their reorder point.</div>
+        </div>
+        <div class="pipe-step rv" style="--d:60ms">
+          <span class="pipe-n">02 · SIZE</span>
+          <div class="pipe-name">Compute the order</div>
+          <div class="pipe-what">Days of cover, target stock, a clamped order quantity and a priority tier.</div>
+        </div>
+        <div class="pipe-step rv" style="--d:120ms">
+          <span class="pipe-n">03 · JUSTIFY</span>
+          <div class="pipe-name">Write the rationale</div>
+          <div class="pipe-what">An LLM drafts 25–40 words naming stockout risk, the wastage trade-off and a vendor fallback.</div>
+        </div>
+        <div class="pipe-step rv">
+          <span class="pipe-n">04 · DRAFT</span>
+          <div class="pipe-name">Write the PO line</div>
+          <div class="pipe-what">A 17-field purchase order row lands in the PO tab, flagged PENDING_APPROVAL.</div>
+        </div>
+        <div class="pipe-step rv" style="--d:60ms">
+          <span class="pipe-n">05 · AGGREGATE</span>
+          <div class="pipe-name">Roll up the run</div>
+          <div class="pipe-what">Every SKU from the cycle collapses into a single reviewable digest.</div>
+        </div>
+        <div class="pipe-step rv" style="--d:120ms">
+          <span class="pipe-n">06 · NOTIFY</span>
+          <div class="pipe-name">Send to the desk</div>
+          <div class="pipe-what">One email to the buying team — no per-SKU alert storm.</div>
+        </div>
+      </div>
+
+      <figure class="diagram rv">
+        <svg viewBox="0 0 860 268" role="img"
+             aria-label="Order quantity is clamped between vendor minimum order quantity and remaining shelf capacity: a need below the minimum is lifted up to it, a need inside the band is taken as-is, and a need above capacity is capped down to it.">
+          <defs>
+            <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M0,0 L10,5 L0,10 z" class="dg-head"/>
+            </marker>
+            <marker id="arn" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M0,0 L10,5 L0,10 z" class="dg-head-n"/>
+            </marker>
+          </defs>
+
+          <text x="170" y="26" class="dg-t bone">order quantity</text>
+          <line x1="286" y1="22" x2="330" y2="22" class="dg-axis" marker-end="url(#arn)"/>
+
+          <rect x="330" y="44" width="350" height="166" class="dg-band"/>
+          <line x1="330" y1="44" x2="330" y2="210" class="dg-rule" stroke-dasharray="4 4"/>
+          <line x1="680" y1="44" x2="680" y2="210" class="dg-rule" stroke-dasharray="4 4"/>
+
+          <text x="155" y="82"  class="dg-t" text-anchor="end">need &lt; MOQ</text>
+          <circle cx="230" cy="78" r="5" class="dg-need"/>
+          <line x1="243" y1="78" x2="318" y2="78" class="dg-arrow" marker-end="url(#ar)"/>
+          <circle cx="330" cy="78" r="6" class="dg-hit"/>
+          <text x="348" y="82" class="dg-t hi">lifted to MOQ</text>
+
+          <text x="155" y="137" class="dg-t" text-anchor="end">need in band</text>
+          <circle cx="505" cy="133" r="11" class="dg-need" opacity=".16"/>
+          <circle cx="505" cy="133" r="6" class="dg-hit"/>
+          <text x="523" y="137" class="dg-t hi">ordered as computed</text>
+
+          <text x="155" y="192" class="dg-t" text-anchor="end">need &gt; capacity</text>
+          <circle cx="780" cy="188" r="5" class="dg-need"/>
+          <line x1="767" y1="188" x2="692" y2="188" class="dg-arrow" marker-end="url(#ar)"/>
+          <circle cx="680" cy="188" r="6" class="dg-hit"/>
+          <text x="662" y="192" class="dg-t hi" text-anchor="end">capped at shelf space</text>
+
+          <line x1="170" y1="228" x2="840" y2="228" class="dg-axis"/>
+          <text x="330" y="252" class="dg-t" text-anchor="middle">vendor MOQ</text>
+          <text x="680" y="252" class="dg-t" text-anchor="middle">shelf capacity − on hand</text>
+        </svg>
+        <figcaption>
+          The order is never just "what we are short of". Raw need is squeezed from both
+          sides — floored at what the vendor will actually ship, capped at what the shelf
+          will physically hold — so the automation cannot order a quantity the dark store
+          has nowhere to put.
+        </figcaption>
+      </figure>
+
+      <div class="rule">
+        <div class="rule-row rv">
+          <div class="k">Target stock</div>
+          <div class="v"><code>ceil(avg daily sales × 3 × 1.2)</code> — three days of forward cover plus a 20% buffer.</div>
+        </div>
+        <div class="rule-row rv">
+          <div class="k">Order quantity</div>
+          <div class="v"><code>min( max(MOQ, target − on hand), shelf capacity − on hand )</code></div>
+        </div>
+        <div class="rule-row rv">
+          <div class="k">Priority tier</div>
+          <div class="v"><b>CRITICAL</b> at or under half a day of cover · <b>HIGH</b> at or under one day · <b>MEDIUM</b> otherwise.</div>
+        </div>
+        <div class="rule-row rv">
+          <div class="k">Approval gate</div>
+          <div class="v">Nothing is ordered. Every line is written as a draft at <b>PENDING_APPROVAL</b> with its cost estimate and rationale attached, so a buyer signs off before spend.</div>
+        </div>
+      </div>
+
+      <div class="chips rv">
+        <span class="tag">Make.com</span>
+        <span class="tag">Google Sheets</span>
+        <span class="tag">LLM rationale</span>
+        <span class="tag">Gmail digest</span>
+        <span class="tag">20-field inventory model</span>
+      </div>
+
+      <p class="scope-note rv">
+        Scope — a working prototype on a seeded dark-store inventory sheet, processing up to
+        25 low-stock SKUs per cycle. It is not deployed against a live retail network, and no
+        savings or fill-rate figures are claimed.
+      </p>
+    </div>
+  </div>
+</section>
+
 <section id="capabilities">
   <div class="wrap sec-grid">
-    <div class="sec-idx"><span class="num">§ 05</span><span class="lbl">Capabilities</span></div>
+    <div class="sec-idx"><span class="num">§ 06</span><span class="lbl">Capabilities</span></div>
     <div>
       <h2 class="rv">Skills</h2>
       <div class="caps">
@@ -739,7 +941,7 @@ td .gold{color:var(--gold);}
 
 <section id="credentials">
   <div class="wrap sec-grid">
-    <div class="sec-idx"><span class="num">§ 06</span><span class="lbl">Credentials</span></div>
+    <div class="sec-idx"><span class="num">§ 07</span><span class="lbl">Credentials</span></div>
     <div>
       <h2 class="rv">Certifications</h2>
       <div class="t-wrap rv">
@@ -773,7 +975,7 @@ td .gold{color:var(--gold);}
 
 <section id="leadership">
   <div class="wrap sec-grid">
-    <div class="sec-idx"><span class="num">§ 07</span><span class="lbl">Leadership</span></div>
+    <div class="sec-idx"><span class="num">§ 08</span><span class="lbl">Leadership</span></div>
     <div>
       <h2 class="rv">Extracurriculars</h2>
       <div class="lead">
@@ -804,7 +1006,7 @@ td .gold{color:var(--gold);}
 
 <section id="education">
   <div class="wrap sec-grid">
-    <div class="sec-idx"><span class="num">§ 08</span><span class="lbl">Education</span></div>
+    <div class="sec-idx"><span class="num">§ 09</span><span class="lbl">Education</span></div>
     <div>
       <h2 class="rv">Academic record</h2>
       <div class="t-wrap rv">
@@ -846,7 +1048,7 @@ td .gold{color:var(--gold);}
 
 <section class="contact" id="contact">
   <div class="wrap sec-grid">
-    <div class="sec-idx"><span class="num">§ 09</span><span class="lbl">Contact</span></div>
+    <div class="sec-idx"><span class="num">§ 10</span><span class="lbl">Contact</span></div>
     <div>
       <div class="eyebrow rv">Open to opportunities</div>
       <h2 class="rv">Let's talk <em>markets.</em></h2>
