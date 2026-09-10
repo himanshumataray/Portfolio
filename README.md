@@ -49,7 +49,15 @@ it out in the browser on load and crops the figure to fit the hero. See
 With no photo present the hero renders single-column, so the page is never left with
 a gap where the portrait would be.
 
-## Note
+## Resume
 
-The header and footer link to `resume.pdf` at the repo root. Add that file before
-publishing, or the links will 404.
+The hero and footer carry a "Resume (PDF)" link pointing at `resume.pdf` in the
+repo root. That file is not in the repository yet.
+
+Rather than leave a dead link, the page asks the server whether the file exists
+and hides both links if it answers 404. Drop `resume.pdf` at the repo root and
+they reappear on their own — no markup change needed.
+
+A network or protocol error is deliberately not treated as "missing", so a
+transient failure can never hide a link that really works. With JavaScript
+disabled the links are always rendered.
