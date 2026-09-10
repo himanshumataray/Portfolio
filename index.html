@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Himanshu Mataray — Aspiring VC Analyst</title>
+<meta name="description" content="Portfolio of Himanshu Mataray — aspiring VC analyst. Market sizing, commercial diligence and competitive benchmarking across 34 global markets.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:wght@400;500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F5F6F1;
+    --paper-raise:#FBFBF8;
+    --ink:#131A2C;
+    --ink-soft:#4B5568;
+    --ink-faint:#8A8F9C;
+    --line:#D9D7CC;
+    --accent:#B8862C;
+    --accent-deep:#8C6318;
+    --serif: 'Spectral', Georgia, serif;
+    --sans: 'Inter', -apple-system, sans-serif;
+    --mono: 'IBM Plex Mono', 'Courier New', monospace;
+    --max: 880px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} *{animation-duration:0.01ms !important; transition-duration:0.01ms !important;} }
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--sans);
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:var(--ink); text-decoration-color:var(--line); text-underline-offset:3px;}
+  a:hover{color:var(--accent-deep);}
+  a:focus-visible, button:focus-visible{outline:2px solid var(--accent); outline-offset:2px;}
+
+  /* Top nav */
+  .nav{
+    position:sticky; top:0; z-index:50;
+    background:var(--ink); color:var(--paper-raise);
+    display:flex; align-items:center; justify-content:space-between;
+    padding:12px 24px;
+    font-family:var(--mono); font-size:12.5px; letter-spacing:0.02em;
+  }
+  .nav a{color:var(--paper-raise); opacity:0.75; margin-left:18px; text-decoration:none;}
+  .nav a:hover{opacity:1; color:var(--accent);}
+  .nav .brand{opacity:1; font-weight:500;}
+  .nav .links{display:flex; overflow-x:auto; scrollbar-width:none;}
+  .nav .links::-webkit-scrollbar{display:none;}
+
+  /* Hero / memo header */
+  .hero{
+    max-width:var(--max); margin:0 auto; padding:56px 24px 44px;
+    border-bottom:1px solid var(--line);
+  }
+  .memo-stamp{
+    display:flex; justify-content:space-between; align-items:baseline;
+    font-family:var(--mono); font-size:11.5px; color:var(--ink-faint);
+    letter-spacing:0.04em; margin-bottom:28px; flex-wrap:wrap; gap:6px;
+  }
+  .memo-stamp span:first-child{color:var(--accent-deep);}
+  h1{
+    font-family:var(--serif); font-weight:600; font-size:clamp(2.1rem, 5vw, 3.2rem);
+    margin:0 0 14px; line-height:1.08; letter-spacing:-0.01em;
+  }
+  .tagline{
+    font-family:var(--serif); font-style:italic; font-size:1.2rem;
+    color:var(--ink-soft); max-width:560px; margin:0 0 26px;
+  }
+  .contact-row{
+    display:flex; flex-wrap:wrap; gap:8px 22px;
+    font-family:var(--mono); font-size:13px;
+  }
+  .contact-row a{text-decoration:none; border-bottom:1px solid var(--line); padding-bottom:2px;}
+  .contact-row a:hover{border-color:var(--accent);}
+
+  /* Section pattern */
+  section.memo{
+    max-width:var(--max); margin:0 auto;
+    padding:44px 24px; border-bottom:1px solid var(--line);
+    display:grid; grid-template-columns:150px 1fr; gap:32px;
+  }
+  .idx{
+    font-family:var(--mono); font-size:12.5px; color:var(--ink-faint);
+    padding-top:4px;
+  }
+  .idx .num{color:var(--accent-deep); font-weight:500;}
+  h2{
+    font-family:var(--serif); font-weight:600; font-size:1.5rem;
+    margin:0 0 16px; letter-spacing:-0.005em;
+  }
+  .lede{max-width:62ch; color:var(--ink-soft); font-size:1.02rem;}
+
+  /* Thesis */
+  .thesis-stats{
+    display:flex; gap:28px; flex-wrap:wrap; margin-top:22px;
+    font-family:var(--mono); font-size:12.5px; color:var(--ink-soft);
+  }
+  .thesis-stats b{display:block; font-family:var(--serif); font-size:1.55rem; color:var(--ink); font-weight:600; font-style:normal;}
+
+  /* Track record */
+  .role{margin-bottom:30px;}
+  .role:last-child{margin-bottom:0;}
+  .role-head{
+    display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; gap:6px 16px;
+    border-bottom:1px solid var(--line); padding-bottom:8px; margin-bottom:10px;
+  }
+  .role-head h3{font-family:var(--serif); font-size:1.15rem; font-weight:600; margin:0;}
+  .role-meta{font-family:var(--mono); font-size:12px; color:var(--ink-faint); white-space:nowrap;}
+  .role ul{margin:0; padding-left:18px; color:var(--ink-soft);}
+  .role li{margin-bottom:6px;}
+  .role li b{color:var(--ink); font-weight:600;}
+
+  /* Featured memo (Kloth) */
+  .case-box{
+    background:var(--paper-raise); border:1px solid var(--line); padding:26px 28px;
+  }
+  .case-tag{
+    font-family:var(--mono); font-size:11px; letter-spacing:0.06em; color:var(--accent-deep);
+    border:1px solid var(--accent); display:inline-block; padding:3px 8px; margin-bottom:16px;
+  }
+  .case-grid{display:grid; grid-template-columns:1fr; gap:16px; margin-top:16px;}
+  .case-field{border-top:1px solid var(--line); padding-top:12px;}
+  .case-field .k{font-family:var(--mono); font-size:11.5px; color:var(--ink-faint); margin-bottom:4px;}
+  .case-field .v{color:var(--ink-soft);}
+  .case-field .v b{color:var(--ink);}
+
+  /* Capabilities */
+  .cap-cols{display:grid; grid-template-columns:1fr 1fr; gap:32px;}
+  .cap-cols h4{font-family:var(--mono); font-size:12px; color:var(--ink-faint); margin:0 0 12px; font-weight:500;}
+  .tags{display:flex; flex-wrap:wrap; gap:8px;}
+  .tag{
+    font-family:var(--mono); font-size:12px; color:var(--ink-soft);
+    border:1px solid var(--line); padding:4px 10px; background:var(--paper-raise);
+  }
+
+  /* Table pattern (certs / education) */
+  .table-wrap{overflow-x:auto;}
+  table{width:100%; border-collapse:collapse; font-size:14.5px;}
+  th{
+    text-align:left; font-family:var(--mono); font-size:11px; color:var(--ink-faint);
+    font-weight:500; padding:0 12px 8px 0; border-bottom:1px solid var(--ink);
+  }
+  td{padding:10px 12px 10px 0; border-bottom:1px solid var(--line); vertical-align:top; color:var(--ink-soft);}
+  td.strong{color:var(--ink); font-weight:500;}
+  td.mono, th.mono{font-family:var(--mono); font-size:12.5px; white-space:nowrap;}
+
+  /* Achievements list */
+  .achieve{list-style:none; margin:20px 0 0; padding:0;}
+  .achieve li{
+    display:grid; grid-template-columns:70px 1fr; gap:14px;
+    padding:12px 0; border-top:1px solid var(--line);
+  }
+  .achieve li:first-child{border-top:none;}
+  .achieve .when{font-family:var(--mono); font-size:12px; color:var(--ink-faint); padding-top:2px;}
+  .achieve .what b{color:var(--ink);}
+  .achieve .what{color:var(--ink-soft);}
+
+  /* Leadership grid */
+  .lead-grid{display:grid; grid-template-columns:1fr 1fr; gap:14px 28px;}
+  .lead-item{border-top:1px solid var(--line); padding-top:10px;}
+  .lead-item .role-name{font-weight:600; color:var(--ink); font-size:0.98rem;}
+  .lead-item .role-org{font-family:var(--mono); font-size:11.5px; color:var(--ink-faint); margin-bottom:4px;}
+  .lead-item p{margin:4px 0 0; color:var(--ink-soft); font-size:0.93rem;}
+
+  /* Footer */
+  footer{
+    max-width:var(--max); margin:0 auto; padding:48px 24px 60px;
+    display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:20px;
+  }
+  footer h2{margin-bottom:8px;}
+  footer .foot-links{display:flex; gap:20px; font-family:var(--mono); font-size:13px;}
+  footer .foot-links a{text-decoration:none; border-bottom:1px solid var(--line);}
+  .copyright{font-family:var(--mono); font-size:11px; color:var(--ink-faint); max-width:var(--max); margin:0 auto; padding:0 24px 32px;}
+
+  @media (max-width:720px){
+    section.memo{grid-template-columns:1fr; gap:10px;}
+    .idx{display:flex; gap:8px; padding-top:0;}
+    .cap-cols{grid-template-columns:1fr;}
+    .lead-grid{grid-template-columns:1fr;}
+    .nav .brand{display:none;}
+    table{font-size:13px;}
+  }
+
+  /* single orchestrated entrance */
+  .hero{animation:rise 0.7s ease-out;}
+  @keyframes rise{from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:translateY(0);}}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <span class="brand">H. MATARAY</span>
+  <div class="links">
+    <a href="#thesis">Thesis</a>
+    <a href="#track">Track Record</a>
+    <a href="#memo">Featured Memo</a>
+    <a href="#capabilities">Capabilities</a>
+    <a href="#credentials">Credentials</a>
+    <a href="#education">Education</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="memo-stamp">
+    <span>Investment Analyst Portfolio</span>
+    <span>2026 · Gurugram, India</span>
+  </div>
+  <h1>Himanshu Mataray</h1>
+  <p class="tagline">Aspiring VC Analyst — market sizing &amp; diligence across 34 global markets, one year in.</p>
+  <div class="contact-row">
+    <a href="mailto:himanshu.mataray2028@mastersunion.org">himanshu.mataray2028@mastersunion.org</a>
+    <a href="https://www.linkedin.com/in/himanshumataray/" target="_blank" rel="noopener">LinkedIn</a>
+    <a href="tel:+919667711977">+91 96677 11977</a>
+    <a href="resume.pdf" target="_blank" rel="noopener">Resume (PDF) ↗</a>
+  </div>
+</header>
+
+<section class="memo" id="thesis">
+  <div class="idx"><span class="num">§1</span> Thesis</div>
+  <div>
+    <h2>What I do before anyone writes a check</h2>
+    <p class="lede">I spend my time doing the work that precedes an investment decision: sizing the market, mapping the competitive whitespace, and pressure-testing whether the unit economics actually hold. Over the past year at 6Wresearch, I ran 21 commercial diligence engagements across 34 markets in the Middle East and Europe for firms including Bain, EY-Parthenon, LG, and Bosch — evaluating opportunities in ₹10,000–30,000 Cr markets and benchmarking 200+ companies on revenue, share, and moat. I'm now looking to bring that same diligence discipline to the investing side: finding the businesses worth backing, not just the ones worth advising.</p>
+    <div class="thesis-stats">
+      <div><b>34</b>markets evaluated</div>
+      <div><b>21</b>diligence engagements</div>
+      <div><b>200+</b>companies benchmarked</div>
+      <div><b>30%</b>lift in client conviction</div>
+    </div>
+  </div>
+</section>
+
+<section class="memo" id="track">
+  <div class="idx"><span class="num">§2</span> Track Record</div>
+  <div>
+    <h2>Experience</h2>
+
+    <div class="role">
+      <div class="role-head">
+        <h3>6Wresearch — Research Associate</h3>
+        <span class="role-meta">Sep '25 – Mar '26 · Delhi</span>
+      </div>
+      <ul>
+        <li>Executed <b>21 commercial diligence engagements</b> across 34 MEA &amp; EU markets for Bain, EY-Parthenon, LG, and Bosch.</li>
+        <li>Evaluated <b>15+ market opportunities</b> in ₹10,000–30,000 Cr markets, stress-testing 12–25% CAGR growth theses.</li>
+        <li>Benchmarked <b>200+ targets</b> on revenue (₹500–30,000 Cr), market share (top 5: 60–70%), and competitive moat.</li>
+        <li>Built KPI and unit-economics screens that cut investment review cycles by <b>25%</b> for decision-makers.</li>
+        <li>Recommendations on market entry and capital deployment lifted client conviction by <b>30%</b>.</li>
+      </ul>
+    </div>
+
+    <div class="role">
+      <div class="role-head">
+        <h3>Empirico Research — Junior Research Associate</h3>
+        <span class="role-meta">Jun '25 – Sep '25 · Gurugram</span>
+      </div>
+      <ul>
+        <li>Authored <b>20+ investment memos and whitepapers</b> from primary and expert-channel research.</li>
+        <li>Ran <b>10+ voice-of-customer surveys</b> validating demand signals across APAC, US, and UK.</li>
+        <li>Synthesised market intelligence into investment theses, cutting diligence turnaround by <b>35%</b>.</li>
+      </ul>
+    </div>
+
+    <div style="margin-top:34px;">
+      <h4 style="font-family:var(--mono); font-size:12px; color:var(--ink-faint); font-weight:500; margin:0 0 12px;">Early Record — Internships</h4>
+      <div class="table-wrap">
+      <table>
+        <tr><th>When</th><th>Role</th><th>Highlight</th></tr>
+        <tr>
+          <td class="mono">Oct '24 – Jan '25</td>
+          <td class="strong">Public Relations Intern, Smile Care Foundation</td>
+          <td>5+ initiatives across 10+ stakeholders at 100% milestone adherence; built analytics frameworks lifting campaign effectiveness 30%.</td>
+        </tr>
+        <tr>
+          <td class="mono">Sep '24 – Oct '24</td>
+          <td class="strong">Fundraising Intern, TopTrove Foundation</td>
+          <td>Led a 10-member capital-raise team (25% coordination lift); expanded 50+ funder relationships at 20% conversion.</td>
+        </tr>
+        <tr>
+          <td class="mono">May '22 – Jun '22</td>
+          <td class="strong">Marketing Intern, Bhumiz.com</td>
+          <td>Optimised GTM messaging across 3 channels (35% consistency lift); translated funnel analytics into a 28% engagement lift.</td>
+        </tr>
+      </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="memo" id="memo">
+  <div class="idx"><span class="num">§3</span> Featured Memo</div>
+  <div>
+    <h2>Market entry case study</h2>
+    <div class="case-box">
+      <span class="case-tag">180 DEGREES CONSULTING · CLIENT ENGAGEMENT</span>
+      <div class="case-grid">
+        <div class="case-field">
+          <div class="k">COMPANY / MARKET</div>
+          <div class="v"><b>Kloth</b> — sustainable apparel &amp; e-commerce, Singapore</div>
+        </div>
+        <div class="case-field">
+          <div class="k">THE QUESTION</div>
+          <div class="v">Where should Kloth prioritise its market expansion, and what does a defensible go-to-market roadmap look like against incumbents already in the space?</div>
+        </div>
+        <div class="case-field">
+          <div class="k">WHAT I DID</div>
+          <div class="v">Led technical execution and cross-border data analytics for the engagement. Benchmarked <b>10+ incumbent brands</b> in Singapore's sustainable apparel market to surface competitive whitespace, and designed a data architecture to streamline multi-regional consumer behaviour analysis. Scoped and ran the full diligence — requirement gathering through final client readout.</div>
+        </div>
+        <div class="case-field">
+          <div class="k">THE THESIS</div>
+          <div class="v">Structured a market-entry recommendation with 3–5 prioritised growth levers on positioning and digital touchpoints, translating e-commerce performance data into an actionable go-to-market roadmap aligned with Kloth's international growth objectives.</div>
+        </div>
+        <div class="case-field">
+          <div class="k">TIMEFRAME</div>
+          <div class="v">May '23 – Aug '23 · Delhi (remote engagement with Singapore-based client)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="memo" id="capabilities">
+  <div class="idx"><span class="num">§4</span> Capabilities</div>
+  <div>
+    <h2>Skills</h2>
+    <div class="cap-cols">
+      <div>
+        <h4>Business</h4>
+        <div class="tags">
+          <span class="tag">Problem structuring</span>
+          <span class="tag">Market sizing</span>
+          <span class="tag">Opportunity assessment</span>
+          <span class="tag">Competitive analysis</span>
+          <span class="tag">Benchmarking</span>
+          <span class="tag">Decision frameworks</span>
+          <span class="tag">Strategic recommendations</span>
+          <span class="tag">Unit economics</span>
+          <span class="tag">Root cause analysis</span>
+          <span class="tag">Cross-functional execution</span>
+          <span class="tag">Stakeholder management</span>
+          <span class="tag">Executive communication</span>
+        </div>
+      </div>
+      <div>
+        <h4>Technical</h4>
+        <div class="tags">
+          <span class="tag">Advanced Excel</span>
+          <span class="tag">PowerPoint</span>
+          <span class="tag">Power BI</span>
+          <span class="tag">Tableau</span>
+          <span class="tag">Looker Studio</span>
+          <span class="tag">Financial modelling</span>
+          <span class="tag">KPI dashboarding</span>
+          <span class="tag">Forecasting</span>
+          <span class="tag">Cohort analysis</span>
+          <span class="tag">Scenario modelling</span>
+          <span class="tag">SQL (basic)</span>
+          <span class="tag">Python (basic)</span>
+          <span class="tag">Data storytelling</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="memo" id="credentials">
+  <div class="idx"><span class="num">§5</span> Credentials</div>
+  <div>
+    <h2>Certifications</h2>
+    <div class="table-wrap">
+    <table>
+      <tr><th class="mono">Issued</th><th>Certification</th><th>Issuer</th></tr>
+      <tr><td class="mono">May '26</td><td class="strong">Generative AI Mastermind</td><td>Outskill</td></tr>
+      <tr><td class="mono">Jul '25</td><td class="strong">Forward Program</td><td>McKinsey.org</td></tr>
+      <tr><td class="mono">Jul '25</td><td class="strong">Data Analytics Job Simulation</td><td>Forage · Deloitte</td></tr>
+      <tr><td class="mono">Jun '25</td><td class="strong">Advisors &amp; Consulting Services Job Simulation</td><td>Forage · Mastercard</td></tr>
+      <tr><td class="mono">Jun '25</td><td class="strong">Introduction to Statistics (96.25%)</td><td>Coursera · Stanford</td></tr>
+      <tr><td class="mono">May '25</td><td class="strong">Sales Job Simulation</td><td>Forage · PepsiCo</td></tr>
+      <tr><td class="mono">May '25</td><td class="strong">Off-Premise Sales Job Simulation</td><td>Forage · Red Bull</td></tr>
+      <tr><td class="mono">Jul '23</td><td class="strong">Introduction to Strategy Consulting Job Simulation</td><td>Forage · BCG</td></tr>
+    </table>
+    </div>
+
+    <h2 style="margin-top:36px;">Achievements</h2>
+    <ul class="achieve">
+      <li><span class="when">Mar '26</span><span class="what">Two <b>Research &amp; Assistant Manager commendations</b> at 6Wresearch for analytical rigour and ownership under tight client deadlines.</span></li>
+      <li><span class="when">Oct '24</span><span class="what">Recognised by the <b>TopTrove Foundation</b> Co-Founder and Department Head for high-quality delivery within aggressive timelines.</span></li>
+      <li><span class="when">'21</span><span class="what"><b>Head Boy</b>, St. John's Academy — apex student leader for 1,500+ students.</span></li>
+      <li><span class="when">'21</span><span class="what"><b>3rd place</b>, District Ball Badminton Championship, against 100+ regional athletes.</span></li>
+    </ul>
+  </div>
+</section>
+
+<section class="memo" id="leadership">
+  <div class="idx"><span class="num">§6</span> Leadership</div>
+  <div>
+    <h2>Extracurriculars</h2>
+    <div class="lead-grid">
+      <div class="lead-item">
+        <div class="role-name">Head of Technical Department</div>
+        <div class="role-org">180 Degrees Consulting, SGTB Khalsa · Apr '23 – Jan '24</div>
+        <p>Promoted from Junior Consultant in 6 months; led diligence across 4 engagements and built repeatable data workflows that cut turnaround by 30%.</p>
+      </div>
+      <div class="lead-item">
+        <div class="role-name">Executive Member</div>
+        <div class="role-org">IGNITE, The Placement Cell, SGTB Khalsa · Dec '21 – Apr '22</div>
+        <p>Sourced 40+ corporate partners and ran Anubhava, the annual internship fair, drawing 1,000+ applicants.</p>
+      </div>
+      <div class="lead-item">
+        <div class="role-name">Captain, Marching Band</div>
+        <div class="role-org">St. John's Academy · Apr '19 – Jul '21</div>
+        <p>Commanded the school corps across 20+ state and institutional ceremonies.</p>
+      </div>
+      <div class="lead-item">
+        <div class="role-name">Head, Debate &amp; Discussion Club</div>
+        <div class="role-org">St. John's Academy · Apr '18 – Jul '21</div>
+        <p>Mentored a student cohort in public speaking, structured argumentation, and policy analysis.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="memo" id="education">
+  <div class="idx"><span class="num">§7</span> Education</div>
+  <div>
+    <h2>Academic record</h2>
+    <div class="table-wrap">
+    <table>
+      <tr><th class="mono">Years</th><th>Programme</th><th>Institute</th><th>Result</th></tr>
+      <tr>
+        <td class="mono">2026 – Present</td>
+        <td class="strong">PGP, Technology &amp; Business Management<br><span style="font-size:12px; color:var(--ink-faint);">Young Leaders Cohort · 10% Scholarship</span></td>
+        <td>Masters' Union, Gurugram</td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td class="mono">2021 – 2024</td>
+        <td class="strong">B.Sc. (Hons.) Electronics</td>
+        <td>SGTB Khalsa College, University of Delhi</td>
+        <td>5.56 CGPA</td>
+      </tr>
+      <tr>
+        <td class="mono">2020 – 2021</td>
+        <td class="strong">CBSE Class XII (Science)</td>
+        <td>St. John's Academy</td>
+        <td>94.20% · Rank 2 in batch</td>
+      </tr>
+      <tr>
+        <td class="mono">2019 – 2020</td>
+        <td class="strong">CBSE Class X</td>
+        <td>St. John's Academy</td>
+        <td>91.30% · Top 5% of class</td>
+      </tr>
+    </table>
+    </div>
+  </div>
+</section>
+
+<footer id="contact">
+  <div>
+    <h2>Let's talk markets.</h2>
+    <p class="lede" style="margin-top:0;">Open to venture / investment analyst roles and conversations about early-stage markets in South Asia and beyond.</p>
+  </div>
+  <div class="foot-links">
+    <a href="mailto:himanshu.mataray2028@mastersunion.org">Email</a>
+    <a href="https://www.linkedin.com/in/himanshumataray/" target="_blank" rel="noopener">LinkedIn</a>
+    <a href="resume.pdf" target="_blank" rel="noopener">Resume</a>
+  </div>
+</footer>
+<p class="copyright">© 2026 Himanshu Mataray. Last updated September 2026.</p>
+
+</body>
+</html>
