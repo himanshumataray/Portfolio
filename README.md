@@ -16,7 +16,25 @@ python3 -m http.server 8000
 
 Then open http://localhost:8000
 
-## Deploying with GitHub Pages
+## Deploying
+
+### Vercel
+
+No build step — `vercel.json` configures it as a static site served from the repo
+root, with cache and security headers.
+
+1. Go to [vercel.com/new](https://vercel.com/new) and import this repository. It is
+   private, so grant Vercel access to it when prompted.
+2. Framework Preset **Other**, Root Directory `./`. Leave build command and output
+   directory empty.
+3. Deploy.
+
+`claude/portfolio-website-styling-gagtoy` is the repository's default branch, so it
+is the production branch and every push to it redeploys.
+
+From a local clone instead: `npx vercel --prod`.
+
+### GitHub Pages
 
 Settings → Pages → Build and deployment → Deploy from a branch, then pick the
 branch and the `/ (root)` folder.
