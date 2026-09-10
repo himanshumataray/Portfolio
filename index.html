@@ -1033,6 +1033,15 @@ td .gold{color:var(--gold);}
   var inner = document.getElementById('heroInner');
   if (!fig || !out || !inner) return;
 
+  /* An already-keyed image can be supplied directly (the published preview inlines
+     one) — marked with data-cut so the keying below is skipped. */
+  if (fig.hasAttribute('data-cut')){
+    inner.classList.remove('solo');
+    var shown = function(){ fig.classList.add('ready'); };
+    if (out.complete && out.naturalWidth) shown(); else out.addEventListener('load', shown);
+    return;
+  }
+
   var sources = ['assets/portrait.jpg','assets/portrait.png','assets/portrait.webp','assets/portrait.jpeg'];
   var at = 0;
 
