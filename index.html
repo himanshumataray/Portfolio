@@ -134,8 +134,41 @@ p{margin:0;}
     radial-gradient(120% 78% at 78% 8%, rgba(216,155,60,.13), transparent 58%),
     linear-gradient(180deg, rgba(8,9,12,.55) 0%, rgba(8,9,12,.2) 34%, rgba(8,9,12,.94) 88%);
 }
-.hero-inner{max-width:var(--wrap); margin:0 auto; padding-inline:var(--gutter); width:100%;}
+.hero-inner{
+  max-width:var(--wrap); margin:0 auto; padding-inline:var(--gutter); width:100%;
+  display:grid; grid-template-columns:minmax(0,1fr) clamp(240px,26vw,420px);
+  gap:clamp(18px,4vw,56px); align-items:end;
+}
+.hero-inner.solo{grid-template-columns:minmax(0,1fr);}
+.hero-inner.solo .portrait{display:none;}
+.hero-copy{min-width:0;}
 .hero h1{margin:26px 0 0; max-width:16ch;}
+.hero-inner:not(.solo) h1{font-size:clamp(2.6rem,5.6vw,5rem);}
+
+/* portrait — background knocked out in-browser, graded to the palette */
+.portrait{
+  margin:0; position:relative; min-width:0; width:100%;
+  align-self:end; justify-self:end;
+  opacity:0; transform:translateY(16px);
+  transition:opacity 1s var(--ease), transform 1s var(--ease);
+}
+.portrait.ready{opacity:1; transform:none;}
+.portrait::before{
+  content:""; position:absolute; left:6%; right:6%; top:6%; bottom:16%;
+  background:radial-gradient(56% 50% at 50% 34%, rgba(216,155,60,.22), transparent 68%);
+  filter:blur(22px); z-index:-1; pointer-events:none;
+}
+.portrait img{
+  display:block; width:100%; height:auto;
+  filter:contrast(1.06) saturate(.86) brightness(.95);
+  -webkit-mask-image:linear-gradient(180deg,#000 56%,rgba(0,0,0,.55) 82%,transparent 99%);
+  mask-image:linear-gradient(180deg,#000 56%,rgba(0,0,0,.55) 82%,transparent 99%);
+}
+@media (max-width:900px){
+  .hero-inner{grid-template-columns:minmax(0,1fr);}
+  .portrait{max-width:220px; justify-self:start; margin-top:26px;}
+  .hero-inner:not(.solo) h1{font-size:clamp(2.9rem,8.4vw,7.2rem);}
+}
 .hero h1 .ln{display:block; overflow:hidden; padding-bottom:.09em; margin-bottom:-.09em;}
 .hero h1 .ln > i{display:block; font-style:normal; transform:translateY(104%); animation:lift .95s var(--ease) forwards;}
 .hero h1 .ln:nth-child(1) > i{animation-delay:.14s;}
@@ -448,7 +481,8 @@ td .gold{color:var(--gold);}
 
 <header class="hero" id="top">
   <canvas id="grid" aria-hidden="true"></canvas>
-  <div class="hero-inner">
+  <div class="hero-inner solo" id="heroInner">
+    <div class="hero-copy">
     <div class="eyebrow fade-up">Investment Analyst · Portfolio 2026</div>
     <h1>
       <span class="ln"><i>The work that happens</i></span>
@@ -465,6 +499,10 @@ td .gold{color:var(--gold);}
       <a href="https://www.linkedin.com/in/himanshumataray/" target="_blank" rel="noopener">LinkedIn ↗</a>
       <a href="resume.pdf" target="_blank" rel="noopener">Resume (PDF) ↗</a>
     </div>
+    </div>
+    <figure class="portrait" id="portrait">
+      <img id="portraitImg" alt="Himanshu Mataray">
+    </figure>
   </div>
   <div class="hero-strip fade-up">
     <div class="wrap">
@@ -979,6 +1017,134 @@ td .gold{color:var(--gold);}
       }, {threshold:0}).observe(cv);
     }
   }
+})();
+</script>
+
+<script>
+/* Hero portrait — knocks the white studio background out in the browser, so the
+   original unedited headshot can be dropped in at assets/portrait.jpg as-is.
+   The key floods inward from the frame edges through near-white pixels only, so
+   the white shirt (enclosed by the jacket) is preserved. Edge pixels are
+   un-premultiplied against white to kill the halo, then the figure is cropped to
+   its bounding box. Any failure leaves the hero in its single-column state. */
+(function(){
+  var fig   = document.getElementById('portrait');
+  var out   = document.getElementById('portraitImg');
+  var inner = document.getElementById('heroInner');
+  if (!fig || !out || !inner) return;
+
+  var sources = ['assets/portrait.jpg','assets/portrait.png','assets/portrait.webp','assets/portrait.jpeg'];
+  var at = 0;
+
+  function blur3(a, w, h){
+    var o = new Float32Array(a.length);
+    for (var y = 0; y < h; y++){
+      for (var x = 0; x < w; x++){
+        var sum = 0, cnt = 0;
+        for (var dy = -1; dy <= 1; dy++){
+          var yy = y + dy; if (yy < 0 || yy >= h) continue;
+          for (var dx = -1; dx <= 1; dx++){
+            var xx = x + dx; if (xx < 0 || xx >= w) continue;
+            sum += a[yy * w + xx]; cnt++;
+          }
+        }
+        o[y * w + x] = sum / cnt;
+      }
+    }
+    return o;
+  }
+
+  function cutout(img){
+    var sw = img.naturalWidth, sh = img.naturalHeight;
+    var scale = Math.min(1, 900 / Math.max(sw, sh));
+    var w = Math.max(1, Math.round(sw * scale)), h = Math.max(1, Math.round(sh * scale));
+
+    var c = document.createElement('canvas');
+    c.width = w; c.height = h;
+    var ctx = c.getContext('2d');
+    ctx.drawImage(img, 0, 0, w, h);
+
+    var id = ctx.getImageData(0, 0, w, h), d = id.data, n = w * h;
+
+    /* flood the near-white background inward from every frame edge */
+    var bg = new Uint8Array(n), stack = new Int32Array(n), sp = 0;
+    function isWhite(i){ var q = i << 2; return d[q] > 236 && d[q+1] > 236 && d[q+2] > 236; }
+    function seed(i){ if (!bg[i] && isWhite(i)){ bg[i] = 1; stack[sp++] = i; } }
+    for (var x0 = 0; x0 < w; x0++){ seed(x0); seed((h - 1) * w + x0); }
+    for (var y0 = 0; y0 < h; y0++){ seed(y0 * w); seed(y0 * w + w - 1); }
+    while (sp > 0){
+      var i = stack[--sp], cx = i % w, cy = (i / w) | 0;
+      if (cx > 0)     seed(i - 1);
+      if (cx < w - 1) seed(i + 1);
+      if (cy > 0)     seed(i - w);
+      if (cy < h - 1) seed(i + w);
+    }
+
+    /* feather the matte so the cut edge is not aliased */
+    var al = new Float32Array(n);
+    for (var k = 0; k < n; k++) al[k] = bg[k] ? 0 : 1;
+    al = blur3(blur3(al, w, h), w, h);
+
+    var minX = w, minY = h, maxX = -1, maxY = -1;
+    for (var j = 0; j < n; j++){
+      var a = (al[j] - 0.42) / 0.30;
+      a = a < 0 ? 0 : (a > 1 ? 1 : a);
+      var q = j << 2;
+      if (a > 0 && a < 1){
+        /* the source was composited over white — undo it to remove the halo */
+        var inv = 255 * (1 - a);
+        d[q]     = Math.max(0, Math.min(255, (d[q]     - inv) / a));
+        d[q + 1] = Math.max(0, Math.min(255, (d[q + 1] - inv) / a));
+        d[q + 2] = Math.max(0, Math.min(255, (d[q + 2] - inv) / a));
+      }
+      d[q + 3] = Math.round(a * 255);
+      if (a > 0.06){
+        var px = j % w, py = (j / w) | 0;
+        if (px < minX) minX = px;
+        if (px > maxX) maxX = px;
+        if (py < minY) minY = py;
+        if (py > maxY) maxY = py;
+      }
+    }
+    if (maxX < 0) throw new Error('nothing left after keying');
+    ctx.putImageData(id, 0, 0);
+
+    /* crop to the subject so the figure fills its column */
+    var pad = Math.round(Math.min(w, h) * 0.012);
+    var cxx = Math.max(0, minX - pad), cyy = Math.max(0, minY - pad);
+    var cw  = Math.min(w, maxX + pad) - cxx, ch = Math.min(h, maxY + pad) - cyy;
+
+    var c2 = document.createElement('canvas');
+    c2.width = cw; c2.height = ch;
+    c2.getContext('2d').drawImage(c, cxx, cyy, cw, ch, 0, 0, cw, ch);
+    return c2;
+  }
+
+  function place(canvas){
+    function show(url){
+      out.width = canvas.width; out.height = canvas.height;
+      out.src = url;
+      inner.classList.remove('solo');
+      var reveal = function(){ fig.classList.add('ready'); };
+      if (out.decode) out.decode().then(reveal, reveal); else reveal();
+    }
+    if (canvas.toBlob) canvas.toBlob(function(b){ show(b ? URL.createObjectURL(b) : canvas.toDataURL('image/png')); }, 'image/png');
+    else show(canvas.toDataURL('image/png'));
+  }
+
+  function next(){
+    if (at >= sources.length) return;   /* no photo present — hero stays single-column */
+    var img = new Image();
+    img.decoding = 'async';
+    img.onerror = function(){ at++; next(); };
+    img.onload  = function(){
+      try { place(cutout(img)); }
+      catch (e){ console.warn('portrait knockout skipped: ' + e.message); }
+    };
+    img.src = sources[at];
+  }
+
+  next();
 })();
 </script>
 

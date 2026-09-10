@@ -21,6 +21,16 @@ Then open http://localhost:8000
 Settings → Pages → Build and deployment → Deploy from a branch, then pick the
 branch and the `/ (root)` folder.
 
+## Adding the headshot
+
+Drop the original, unedited studio headshot at `assets/portrait.jpg` (`.png`, `.webp`
+and `.jpeg` also work). Do **not** remove the white background first — the page keys
+it out in the browser on load and crops the figure to fit the hero. See
+[`assets/README.md`](assets/README.md) for how the keying works and what it needs.
+
+With no photo present the hero renders single-column, so the page is never left with
+a gap where the portrait would be.
+
 ## Note
 
 The header and footer link to `resume.pdf` at the repo root. Add that file before
