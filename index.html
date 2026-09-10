@@ -396,6 +396,8 @@ section{padding-block:var(--pad-y); border-bottom:1px solid var(--line); positio
 .dg-axis{stroke:currentColor; opacity:.28; stroke-width:1;}
 .dg-need{fill:currentColor; opacity:.5;}
 .dg-hit{fill:var(--gold);}
+.dg-box{fill:var(--surface-2); stroke:currentColor; stroke-opacity:.35; stroke-width:1;}
+.dg-box.hot{stroke:var(--gold); stroke-opacity:.55;}
 .dg-arrow{stroke:var(--gold); stroke-width:1.5; fill:none;}
 .dg-head{fill:var(--gold);}
 .dg-head-n{fill:currentColor; opacity:.4;}
@@ -542,7 +544,7 @@ td .gold{color:var(--gold);}
     <a href="#coverage">Coverage</a>
     <a href="#track">Track Record</a>
     <a href="#memo">Memo</a>
-    <a href="#build">Systems Build</a>
+    <a href="#build">Builds</a>
     <a href="#capabilities">Capabilities</a>
     <a href="#credentials">Credentials</a>
   </div>
@@ -893,9 +895,142 @@ td .gold{color:var(--gold);}
   </div>
 </section>
 
+<section id="product">
+  <div class="wrap sec-grid">
+    <div class="sec-idx"><span class="num">§ 06</span><span class="lbl">Product Build</span></div>
+    <div>
+      <span class="build-tag rv">BOND · Consumer Social · Deployed on Cloud Run</span>
+      <h2 class="rv">Matching people is easy.<br>Getting them to meet isn't.</h2>
+      <p class="lede rv">
+        Friendship apps almost all fail at the same place — the last mile. They match two
+        people who like the same thing, drop them into a chat, and the chat dies before
+        anyone leaves the house. <b>BOND</b> is my attempt at collapsing that gap: shared
+        interest and proximity produce a match, the match produces a concrete activity, and
+        the activity is booked and paid for inside the app. If you both like badminton, it
+        does not suggest a conversation — it puts you on a court.
+      </p>
+
+      <figure class="diagram rv">
+        <svg viewBox="0 0 900 230" role="img"
+             aria-label="A loop: shared interest leads to a proximity match, then to an activity or peer plan, then to a split-cost booking, then to QR check-in; check-in feeds a reliability score that raises future match quality.">
+          <defs>
+            <marker id="ar2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M0,0 L10,5 L0,10 z" class="dg-head-n"/>
+            </marker>
+            <marker id="ar3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M0,0 L10,5 L0,10 z" class="dg-head"/>
+            </marker>
+          </defs>
+
+          <rect x="20"  y="50" width="140" height="58" class="dg-box"/>
+          <text x="90"  y="76" class="dg-t" text-anchor="middle">shared</text>
+          <text x="90"  y="94" class="dg-t" text-anchor="middle">interest</text>
+
+          <rect x="200" y="50" width="140" height="58" class="dg-box"/>
+          <text x="270" y="76" class="dg-t" text-anchor="middle">proximity</text>
+          <text x="270" y="94" class="dg-t" text-anchor="middle">match</text>
+
+          <rect x="380" y="50" width="140" height="58" class="dg-box"/>
+          <text x="450" y="76" class="dg-t" text-anchor="middle">activity or</text>
+          <text x="450" y="94" class="dg-t" text-anchor="middle">peer plan</text>
+
+          <rect x="560" y="50" width="140" height="58" class="dg-box hot"/>
+          <text x="630" y="76" class="dg-t hi" text-anchor="middle">split-cost</text>
+          <text x="630" y="94" class="dg-t hi" text-anchor="middle">booking</text>
+
+          <rect x="740" y="50" width="140" height="58" class="dg-box hot"/>
+          <text x="810" y="76" class="dg-t hi" text-anchor="middle">QR</text>
+          <text x="810" y="94" class="dg-t hi" text-anchor="middle">check-in</text>
+
+          <line x1="164" y1="79" x2="194" y2="79" class="dg-axis" marker-end="url(#ar2)"/>
+          <line x1="344" y1="79" x2="374" y2="79" class="dg-axis" marker-end="url(#ar2)"/>
+          <line x1="524" y1="79" x2="554" y2="79" class="dg-axis" marker-end="url(#ar2)"/>
+          <line x1="704" y1="79" x2="734" y2="79" class="dg-axis" marker-end="url(#ar2)"/>
+
+          <path d="M810,112 L810,166 L270,166 L270,116" class="dg-arrow" marker-end="url(#ar3)"/>
+          <text x="540" y="190" class="dg-t hi" text-anchor="middle">attendance → reliability score → better matches</text>
+        </svg>
+        <figcaption>
+          Most friendship products stop at the second box. The loop only closes once the
+          meeting is booked and physically verified — which is also the only point where the
+          platform earns, and the only place a real trust signal can come from.
+        </figcaption>
+      </figure>
+
+      <div class="pipe">
+        <div class="pipe-step rv">
+          <span class="pipe-n">ONBOARDING</span>
+          <div class="pipe-name">Pick your interests</div>
+          <div class="pipe-what">Ten tags across sport, nightlife, wellness, food and culture become the matching key.</div>
+        </div>
+        <div class="pipe-step rv" style="--d:60ms">
+          <span class="pipe-n">DISCOVER</span>
+          <div class="pipe-name">Compatible people nearby</div>
+          <div class="pipe-what">Cards carry a match score, shared interest chips and real distance — "1.2 km away".</div>
+        </div>
+        <div class="pipe-step rv" style="--d:120ms">
+          <span class="pipe-n">SUPPLY</span>
+          <div class="pipe-name">Two ways to meet</div>
+          <div class="pipe-what">Hosted events with verified organisers, and peer plans anyone can open — "Sunday doubles, need 2 more".</div>
+        </div>
+        <div class="pipe-step rv">
+          <span class="pipe-n">CHECKOUT</span>
+          <div class="pipe-name">Book it in-app</div>
+          <div class="pipe-what">Wallet, card or Apple Pay through a staged authorisation flow that issues the pass.</div>
+        </div>
+        <div class="pipe-step rv" style="--d:60ms">
+          <span class="pipe-n">PASS</span>
+          <div class="pipe-name">Turn up and scan</div>
+          <div class="pipe-what">A QR pass with a booking reference, copy-to-clipboard and calendar export.</div>
+        </div>
+        <div class="pipe-step rv" style="--d:120ms">
+          <span class="pipe-n">PROFILE</span>
+          <div class="pipe-name">Carry your record</div>
+          <div class="pipe-what">Active bonds, upcoming plans, wallet balance and a reliability score.</div>
+        </div>
+      </div>
+
+      <div class="rule">
+        <div class="rule-row rv">
+          <div class="k">The trust layer</div>
+          <div class="v">No-shows are what kill meet-a-stranger products, so attendance is measured rather than assumed: verified badges on hosts and members, a <b>reliability score</b> on every profile, and a QR check-in that proves the meeting happened.</div>
+        </div>
+        <div class="rule-row rv">
+          <div class="k">Where it earns</div>
+          <div class="v">Passes are priced per activity and split between the people attending — a <b>court split pass</b> covering two hours of court time, not a subscription or an ad slot. The platform earns on the meeting itself.</div>
+        </div>
+        <div class="rule-row rv">
+          <div class="k">The AI layer</div>
+          <div class="v">Two Gemini endpoints. <code>/api/ai/match-vibe</code> scores compatibility from both profiles and writes an icebreaker; <code>/api/ai/suggest-plan</code> turns a category and a free-text idea into a plan card.</div>
+        </div>
+        <div class="rule-row rv">
+          <div class="k">Degrades gracefully</div>
+          <div class="v">Both AI routes ship deterministic fallbacks, so the product stays fully usable with no API key configured and a model outage costs a nicer sentence, never a broken screen.</div>
+        </div>
+      </div>
+
+      <div class="chips rv">
+        <span class="tag">React 19</span>
+        <span class="tag">TypeScript</span>
+        <span class="tag">Vite</span>
+        <span class="tag">Tailwind 4</span>
+        <span class="tag">Express</span>
+        <span class="tag">Gemini 2.5 Flash</span>
+        <span class="tag">Google Cloud Run</span>
+      </div>
+
+      <p class="scope-note rv">
+        Scope — a working, deployed prototype. It runs on seeded data held in client state,
+        with no database, authentication or real payment processing; checkout simulates
+        authorisation and issues a pass. No usage or revenue figures are claimed.
+      </p>
+    </div>
+  </div>
+</section>
+
 <section id="capabilities">
   <div class="wrap sec-grid">
-    <div class="sec-idx"><span class="num">§ 06</span><span class="lbl">Capabilities</span></div>
+    <div class="sec-idx"><span class="num">§ 07</span><span class="lbl">Capabilities</span></div>
     <div>
       <h2 class="rv">Skills</h2>
       <div class="caps">
@@ -941,7 +1076,7 @@ td .gold{color:var(--gold);}
 
 <section id="credentials">
   <div class="wrap sec-grid">
-    <div class="sec-idx"><span class="num">§ 07</span><span class="lbl">Credentials</span></div>
+    <div class="sec-idx"><span class="num">§ 08</span><span class="lbl">Credentials</span></div>
     <div>
       <h2 class="rv">Certifications</h2>
       <div class="t-wrap rv">
@@ -975,7 +1110,7 @@ td .gold{color:var(--gold);}
 
 <section id="leadership">
   <div class="wrap sec-grid">
-    <div class="sec-idx"><span class="num">§ 08</span><span class="lbl">Leadership</span></div>
+    <div class="sec-idx"><span class="num">§ 09</span><span class="lbl">Leadership</span></div>
     <div>
       <h2 class="rv">Extracurriculars</h2>
       <div class="lead">
@@ -1006,7 +1141,7 @@ td .gold{color:var(--gold);}
 
 <section id="education">
   <div class="wrap sec-grid">
-    <div class="sec-idx"><span class="num">§ 09</span><span class="lbl">Education</span></div>
+    <div class="sec-idx"><span class="num">§ 10</span><span class="lbl">Education</span></div>
     <div>
       <h2 class="rv">Academic record</h2>
       <div class="t-wrap rv">
@@ -1048,7 +1183,7 @@ td .gold{color:var(--gold);}
 
 <section class="contact" id="contact">
   <div class="wrap sec-grid">
-    <div class="sec-idx"><span class="num">§ 10</span><span class="lbl">Contact</span></div>
+    <div class="sec-idx"><span class="num">§ 11</span><span class="lbl">Contact</span></div>
     <div>
       <div class="eyebrow rv">Open to opportunities</div>
       <h2 class="rv">Let's talk <em>markets.</em></h2>
