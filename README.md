@@ -1,8 +1,12 @@
 # Portfolio — Himanshu Mataray
 
-Single-page portfolio site, styled as an investment memo. Static HTML with no build
-step or dependencies: `index.html` is the whole site (CSS is inlined; fonts load
-from Google Fonts).
+Single-page portfolio site — dark editorial treatment with scroll-driven motion.
+Static HTML with no build step or dependencies: `index.html` is the whole site
+(CSS and JS are inlined; fonts load from Google Fonts).
+
+Motion is progressive: scroll reveals are only armed once the script runs, so with
+JavaScript disabled every section renders visible rather than blank. All animation
+is disabled under `prefers-reduced-motion`.
 
 ## Local preview
 
