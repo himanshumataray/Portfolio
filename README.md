@@ -51,13 +51,17 @@ a gap where the portrait would be.
 
 ## Resume
 
-The hero and footer carry a "Resume (PDF)" link pointing at `resume.pdf` in the
-repo root. That file is not in the repository yet.
+The hero and footer carry a "Resume (PDF)" link pointing at
+`Himanshu-Mataray-CV.pdf` in the repo root. The filename is deliberately
+descriptive rather than generic, so it still identifies its owner once someone
+has saved it.
 
-Rather than leave a dead link, the page asks the server whether the file exists
-and hides both links if it answers 404. Drop `resume.pdf` at the repo root and
-they reappear on their own — no markup change needed.
+To replace the CV, overwrite that file. To change the filename, update the `href`
+on both `.resume-link` anchors — the availability check below reads the path off
+the link itself, so there is no second place to edit.
 
-A network or protocol error is deliberately not treated as "missing", so a
+If the file is ever missing, the page asks the server for it on load and hides
+both links rather than leaving a dead link behind; restoring the file brings them
+back. A network or protocol error is deliberately not treated as "missing", so a
 transient failure can never hide a link that really works. With JavaScript
 disabled the links are always rendered.

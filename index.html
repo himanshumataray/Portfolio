@@ -570,7 +570,7 @@ td .gold{color:var(--gold);}
       <a href="#track">View track record</a>
       <a href="#memo">Read a featured memo</a>
       <a href="https://www.linkedin.com/in/himanshumataray/" target="_blank" rel="noopener">LinkedIn ↗</a>
-      <a class="resume-link" href="resume.pdf" target="_blank" rel="noopener">Resume (PDF) ↗</a>
+      <a class="resume-link" href="Himanshu-Mataray-CV.pdf" target="_blank" rel="noopener">Resume (PDF) ↗</a>
     </div>
     </div>
     <figure class="portrait" id="portrait">
@@ -1199,7 +1199,7 @@ td .gold{color:var(--gold);}
         <div class="foot-links">
           <a href="https://www.linkedin.com/in/himanshumataray/" target="_blank" rel="noopener">LinkedIn ↗</a>
           <a href="tel:+919667711977">+91 96677 11977</a>
-          <a class="resume-link" href="resume.pdf" target="_blank" rel="noopener">Resume (PDF) ↗</a>
+          <a class="resume-link" href="Himanshu-Mataray-CV.pdf" target="_blank" rel="noopener">Resume (PDF) ↗</a>
         </div>
         <div class="copy">© 2026 Himanshu Mataray · Gurugram, India</div>
       </div>
@@ -1497,13 +1497,16 @@ td .gold{color:var(--gold);}
 
 <script>
 /* The resume links point at a file that may not be uploaded yet. Rather than let
-   them dangle, ask the server whether it exists and drop them if it answers 404.
+   them dangle, ask the server whether the file each link targets exists, and drop
+   them if it answers 404.
    A network or protocol error is NOT treated as missing — a transient failure
    should never remove a link that really works. With no JS the links stay put. */
 (function(){
   var links = document.querySelectorAll('.resume-link');
   if (!links.length || !window.fetch) return;
-  fetch('resume.pdf', { method: 'HEAD' }).then(function(res){
+  var href = links[0].getAttribute('href');
+  if (!href) return;
+  fetch(href, { method: 'HEAD' }).then(function(res){
     if (res.ok) return;
     for (var i = 0; i < links.length; i++) links[i].hidden = true;
   }).catch(function(){ /* unreachable, not absent — leave the links alone */ });
